@@ -12,14 +12,20 @@ def multihead_attention(num_head, q, k, v):
         d: embedding size
         q, k, v: query, key, value
     '''
-    print(q.size())
     d = q.shape[1]
     head_dim = int(d/num_head)
-    q = torch.split(q, head_dim, dim=1)[0]
-    k = torch.split(k, head_dim, dim=1)[0]
-    v = torch.split(v, head_dim, dim=1)[0]
+    output = torch.empty((q.shape[0], q.shape[1], v.shape[2]), dtype=torch.int64)
+    q = torch.split(q, head_dim, dim=1)
+    k = torch.split(k, head_dim, dim=1)
+    v = torch.split(v, head_dim, dim=1)
+
     for i in range(num_head):
-        attetion_head = custom_sdp_attention(q, k, v)
+        q_head_i = q[i]
+        k_head_i = k[i]
+        v_head_i = v[i]
+        attetion_head = custom_sdp_attention(q_head_i, k_head_i, v_head_i)
+        output[:, i*head_dim:(i+1)*head_dim, :] = attetion_head
+    return output
 
 
 def custom_sdp_attention(q, k, v):
