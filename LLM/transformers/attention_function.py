@@ -2,6 +2,7 @@ import torch
 import numpy as np
 from torch.nn import Softmax
 
+
 def multihead_attention(num_head, q, k, v):
     '''
     performing multihead attention
