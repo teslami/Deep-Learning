@@ -51,7 +51,4 @@ dv = 10
 q = torch.rand(batch_size, n, dk)
 k = torch.rand(batch_size, n, dk)
 v = torch.rand(batch_size, n, dv)
-# attention_custom = custom_sdp_attention(q, k, v)
-# attention_pytorch = torch.nn.functional.scaled_dot_product_attention(q, k, v)
-# print(torch.allclose(attention_custom, attention_pytorch))
 multihead_attention(3, q, k, v)
