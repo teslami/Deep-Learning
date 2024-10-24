@@ -33,9 +33,7 @@ def custom_sdp_attention(q, k, v):
     '''
     simple implementation of scaled dot product attention using matrices q, k, and v
     attention(q, k, v) = softmax((q*k)/d)*v
-
     input: vectors q: n x dk, k: n x dk, v: n x dv
-
     output: attention value a: nxdv
     '''
     d = q.shape[-1]
