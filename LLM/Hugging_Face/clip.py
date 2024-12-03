@@ -3,7 +3,7 @@ import requests
 from skimage import io
 import os
 import numpy as np
-
+from sklearn.preprocessing import StandardScaler
 
 import matplotlib.pyplot as plt
 from transformers import CLIPProcessor, CLIPModel
@@ -37,6 +37,8 @@ for i in range(len(list_imgs)):
 
 embeddings = np.array(embeddings)
 print(embeddings.shape, len(embeddings))
+scaler = StandardScaler()
+normalized_embeddings = scaler.fit_transform(embeddings)
 from sklearn.manifold import TSNE
 import numpy as np
 
