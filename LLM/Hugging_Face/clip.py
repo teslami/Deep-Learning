@@ -1,12 +1,17 @@
-from PIL import Image
-import requests
-from skimage import io
 import os
-import numpy as np
-from sklearn.preprocessing import StandardScaler
 
+import requests
+from PIL import Image
+from skimage import io
+import numpy as np
+
+from sklearn.manifold import TSNE
+from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
+
 from transformers import CLIPProcessor, CLIPModel
+
+
 
 model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
 processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
@@ -39,8 +44,7 @@ embeddings = np.array(embeddings)
 print(embeddings.shape, len(embeddings))
 scaler = StandardScaler()
 normalized_embeddings = scaler.fit_transform(embeddings)
-from sklearn.manifold import TSNE
-import numpy as np
+
 
 # Reduce dimensions to 2D
 tsne = TSNE(n_components=2, random_state=42)
